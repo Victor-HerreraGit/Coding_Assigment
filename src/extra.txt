@@ -1,0 +1,11 @@
+
+ String[] info = line.split(,);
+                int ID = Integer.parseInt(info[0]);
+                int date = Integer.parseInt(info[3]);
+                int time = Integer.parseInt(info[4]);
+                double VIP_PRICE = Double.parseDouble(info[5]);
+                double GOLD_PRICE = Double.parseDouble(info[6]);
+                double SILVER_PRICE = Double.parseDouble(info[7]);
+                double BRONZE_PRICE = Double.parseDouble(info[8]);
+                double GENERAL_ADMISSION = Double.parseDouble(info[9]);
+C:\Users\victor\Desktop\School Information\Advance Object Oriented Programming\Coding Assigment_1\EventList PA1 (1).csv
