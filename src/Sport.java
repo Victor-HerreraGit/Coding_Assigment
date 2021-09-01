@@ -110,21 +110,6 @@ public class Sport {
     }
 
     //----------------------------Modifying Methods---------------------------------------------------------\\
-    //Method to change Name_input
-    public void  change_name(String nameIn) {
-        Sport temp = new Sport();
-        System.out.print("please enter the name to update");
-        Scanner scr = new Scanner(System.in);
-        String input = scr.nextLine();
-        temp.setName(input);
-        System.out.println("Name has been updated to:"+ input);
-    }
-    // Method
-    public String show_name(){
-        String Name_1 = getName();
-        System.out.print(Name_1);
-        return Name_1;
-    }
 
     public static ArrayList<String> Read_to_Array(String file){
 
@@ -139,29 +124,12 @@ public class Sport {
         }
         return Sporting_information;
     }
-    public void User_Tools() {
+    public void User_Tools() throws IOException {
         Sport obj_1 = new Sport();
         Scanner scr = new Scanner(System.in);
         int i = 0;
-        while (i < 4) {
-            System.out.println("Please select one of the following options.");
-            System.out.println("1. Update name");
-            System.out.println("2. Update time");
-            System.out.println("3. Display Name");
-
-
-            String user_in = scr.nextLine();
-
-            switch (user_in) {
-                case "1": obj_1.change_name("Soccer");
-                    break;
-                case  "2": System.out.print("Testing ");
-                    break;
-                case  "3": obj_1.show_name();
-
-
-            }
-            i++;
+        while(i<4) {
+            obj_1.Selection();
         }
 
 
@@ -180,6 +148,38 @@ public class Sport {
             e.printStackTrace();
         }
         br.close();
+    }
+    public void Selection() throws IOException {
+        ArrayList<String> Sporting_information = new ArrayList<String>();
+        Sport Track = new Sport();
+        Scanner scr = new Scanner(System.in);
+        int i =0;
+        while (i < 4) {
+            System.out.println("Welcome UTEP Sporting Event Tracker");
+            System.out.println("Please select one of the following options");
+            System.out.println("1.Display event"+ "\n"+ "2.Update event " );
+            String user_in = scr.nextLine();
+
+            switch (user_in) {
+                case "1": Track.Reader_1();
+                System.out.println("Please make a selection");
+                String[]events = Track.Read_to_Array();
+                    String update = scr.nextLine();
+                    for(int i =0;i<)
+                    break;
+                case  "2": System.out.print("Testing ");
+                    break;
+                case  "3": Track.getName();
+                    break;
+                default:
+
+
+
+            }
+            i++;
+        }
+
+
     }
 
 
