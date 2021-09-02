@@ -2,7 +2,10 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+
+
 
 public class Sport {
     // Attributes
@@ -20,12 +23,22 @@ public class Sport {
 
 
     // Constructors
-    public Sport(){
-    }
-    public Sport(int ID_IN){
-        ID = ID_IN;
+    public Sport() {
     }
 
+    public Sport(int ID_IN,String Type_in,String Name_in,int date_in,int time_in,double vip_in,double
+                 gold_price,double silver_in,double bronze_in,double general_in){
+        this.ID = ID_IN;
+        this.type = Type_in;
+        this.name = Name_in;
+        this.date = date_in;
+        this.VIP_price = vip_in;
+        this.Gold_price = gold_price;
+        this.Silver_price = silver_in;
+        this.Bronze_price = bronze_in;
+        this.General_Admission = general_in;
+
+    }
 
 
     //Getters Setters
@@ -45,6 +58,7 @@ public class Sport {
     public void setID(int ID) {
         this.ID = ID;
     }
+
     public int getTime() {
         return time;
     }
@@ -109,86 +123,59 @@ public class Sport {
         this.VIP_price = VIP_price;
     }
 
+
     //----------------------------Modifying Methods---------------------------------------------------------\\
-
-    public static ArrayList<String> Read_to_Array(String file){
-
-        ArrayList<String> Sporting_information = new ArrayList<String>();
-        if (file != null) {
-            String[] input_data = file.split("\\s*,\\s*");
-            for (int i = 0; i < input_data.length; i++) {
-                if (!(input_data[i] == null) || !(input_data[i].length() == 0)) {
-                    Sporting_information.add(input_data[i].trim());
-                }
-            }
-        }
-        return Sporting_information;
-    }
-    public void User_Tools() throws IOException {
-        Sport obj_1 = new Sport();
+    public void userTool() throws IOException {
         Scanner scr = new Scanner(System.in);
-        int i = 0;
-        while(i<4) {
-            obj_1.Selection();
+        System.out.println("Welcome to Miner Sports" + "\n" + "Please Make a Selection by Entering Number");
+        System.out.println("1.View Event" + "\n" + "2.Update Event");
+        int Selection = scr.nextInt();
+
+        switch (Selection) {
+            case 1:
+                view();
+                Reader();
+            break;
+            default:
         }
-
-
-    }
-    public void Reader_1() throws IOException {
-        Sport obj_1 = new Sport();
-        BufferedReader br = null;
-        try {
-            String readLine_1;
-            br = new BufferedReader(new FileReader("C:\\Users\\victor\\Desktop\\School Information\\Advance Object Oriented Programming\\Coding Assigment_1\\EventList PA1 (1).csv"));
-            while ((readLine_1 = br.readLine()) != null) {
-                System.out.println((obj_1.Read_to_Array(readLine_1)));
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        br.close();
-    }
-    public void Selection() throws IOException {
-        ArrayList<String> Sporting_information = new ArrayList<String>();
-        Sport Track = new Sport();
-        Scanner scr = new Scanner(System.in);
-        int i =0;
-        while (i < 4) {
-            System.out.println("Welcome UTEP Sporting Event Tracker");
-            System.out.println("Please select one of the following options");
-            System.out.println("1.Display event"+ "\n"+ "2.Update event " );
-            String user_in = scr.nextLine();
-
-            switch (user_in) {
-                case "1": Track.Reader_1();
-                System.out.println("Please make a selection");
-                String[]events = Track.Read_to_Array();
-                    String update = scr.nextLine();
-                    for(int i =0;i<)
-                    break;
-                case  "2": System.out.print("Testing ");
-                    break;
-                case  "3": Track.getName();
-                    break;
-                default:
-
-
-
-            }
-            i++;
-        }
-
 
     }
 
+    public void view() throws IOException {
+       System.out.println("Please view events");
+       Reader();
+    }
 
+    public List Reader() throws IOException {
 
+        List read = new ArrayList<>();                // Arraylist To Store Data
+        String Path = "EventList PA1 (1).csv";                          // Csv. File to be read
+        BufferedReader BR = new BufferedReader(new FileReader(Path));    // Buffered Reader to read file
+        String Read = BR.readLine();
+        while (Read != null && !Read.isEmpty()) {
+            String[] options = Read.split(",");
+            int ID = Integer.parseInt(options[0]);
+            String type = options[1];
+            String name = options[2];
+            int Date = Integer.parseInt(options[3]);
+            int Time = Integer.parseInt(options[4]);
+            double VIP = Double.parseDouble(options[5]);
+            double GOLD = Double.parseDouble(options[6]);
+            double Silver = Double.parseDouble(options[7]);
+            double Bronze = Double.parseDouble(options[8]);
+            double General = Double.parseDouble(options[9]);
+            Sport event = new Sport(ID,type,name,Date,Time,VIP,GOLD,Silver,Bronze,General);
+            read.add(event);
+        }
+        return read;
+
+    }
+    @Override
+    public String toString() {
+        return "Event[ID = "+ ID+ "Type = "+"Name = "+name+"Date = "+ date
+                + "Time = "+time+ "VIP Price is "+VIP_price+ "Gold Price is "+ Gold_price
+                + "Silver Price is "+Silver_price+ " Bronze Price is"+ Bronze_price+ "General Admission is"+ General_Admission+"]";
+
+    }
 }
-
-
-
-
-
-
 
