@@ -2,21 +2,21 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 
-
 public class Sport {
-    // Attributes
-    private int ID;
-    private int date;
-    private int time;
-    private double VIP_price;
-    private double Gold_price;
-    private double Silver_price;
-    private double Bronze_price;
-    private double General_Admission;
+    // Attributes import java.text.SimpleDateFormat;
+    private String ID;
+    private String date;
+    private String time;
+    private String VIP_price;
+    private String Gold_price;
+    private String Silver_price;
+    private String Bronze_price;
+    private String General_Admission;
 
     private String type;
     private String name;
@@ -26,8 +26,8 @@ public class Sport {
     public Sport() {
     }
 
-    public Sport(int ID_IN,String Type_in,String Name_in,int date_in,int time_in,double vip_in,double
-                 gold_price,double silver_in,double bronze_in,double general_in){
+    public Sport(String ID_IN,String Type_in,String Name_in,String date_in,String time_in,String vip_in,String
+                 gold_price,String silver_in,String bronze_in,String general_in){
         this.ID = ID_IN;
         this.type = Type_in;
         this.name = Name_in;
@@ -43,29 +43,24 @@ public class Sport {
 
     //Getters Setters
 
-    public int getDate() {
+
+    public String getDate() {
         return date;
     }
 
-    public void setDate(int date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public int getID() {
+    public String getID() {
         return ID;
     }
 
-    public void setID(int ID) {
+    public void setID(String ID) {
         this.ID = ID;
     }
 
-    public int getTime() {
-        return time;
-    }
 
-    public void setTime(int time) {
-        this.time = time;
-    }
 
     public String getName() {
         return name;
@@ -83,43 +78,43 @@ public class Sport {
         this.type = type;
     }
 
-    public double getGeneral_Admission() {
+    public String getGeneral_Admission() {
         return General_Admission;
     }
 
-    public void setGeneral_Admission(double general_Admission) {
+    public void setGeneral_Admission(String general_Admission) {
         General_Admission = general_Admission;
     }
 
-    public double getBronze_price() {
+    public String getBronze_price() {
         return Bronze_price;
     }
 
-    public void setBronze_price(double bronze_price) {
+    public void setBronze_price(String bronze_price) {
         Bronze_price = bronze_price;
     }
 
-    public double getSilver_price() {
+    public String getSilver_price() {
         return Silver_price;
     }
 
-    public void setSilver_price(double silver_price) {
+    public void setSilver_price(String silver_price) {
         Silver_price = silver_price;
     }
 
-    public double getGold_price() {
+    public String getGold_price() {
         return Gold_price;
     }
 
-    public void setGold_price(double gold_price) {
+    public void setGold_price(String gold_price) {
         Gold_price = gold_price;
     }
 
-    public double getVIP_price() {
+    public String getVIP_price() {
         return VIP_price;
     }
 
-    public void setVIP_price(double VIP_price) {
+    public void setVIP_price(String VIP_price) {
         this.VIP_price = VIP_price;
     }
 
@@ -135,6 +130,7 @@ public class Sport {
             case 1:
                 view();
                 Reader();
+
             break;
             default:
         }
@@ -143,38 +139,68 @@ public class Sport {
 
     public void view() throws IOException {
        System.out.println("Please view events");
-       Reader();
+
     }
 
-    public List Reader() throws IOException {
+    public String getTime() {
+        return time;
+    }
 
-        List read = new ArrayList<>();                // Arraylist To Store Data
-        String Path = "EventList PA1 (1).csv";                          // Csv. File to be read
-        BufferedReader BR = new BufferedReader(new FileReader(Path));    // Buffered Reader to read file
-        String Read = BR.readLine();
-        while (Read != null && !Read.isEmpty()) {
-            String[] options = Read.split(",");
-            int ID = Integer.parseInt(options[0]);
-            String type = options[1];
-            String name = options[2];
-            int Date = Integer.parseInt(options[3]);
-            int Time = Integer.parseInt(options[4]);
-            double VIP = Double.parseDouble(options[5]);
-            double GOLD = Double.parseDouble(options[6]);
-            double Silver = Double.parseDouble(options[7]);
-            double Bronze = Double.parseDouble(options[8]);
-            double General = Double.parseDouble(options[9]);
-            Sport event = new Sport(ID,type,name,Date,Time,VIP,GOLD,Silver,Bronze,General);
-            read.add(event);
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public List<List<String>> Reader() throws IOException {
+
+
+        List read = null;
+        try {
+            read = new ArrayList<>();
+
+            String Path = "EventList PA1 (1).csv";                          // Csv. File to be read
+
+            String Read = " ";
+            BufferedReader BR = new BufferedReader(new FileReader(Path));    // Buffered Reader to read file
+            while ((Read = BR.readLine()) != null) {
+                String[] options = Read.split(",");
+                String ID = (options[0]);
+                String type = options[1];
+                String name = options[2];
+                String Date = options[3];
+                String Time = options[4];
+                String VIP = (options[5]);
+                String GOLD = (options[6]);
+                String Silver = (options[7]);
+                String Bronze = (options[8]);
+                String General = (options[9]);
+                Sport event = new Sport(ID, type, name, Date, Time, VIP, GOLD, Silver, Bronze, General);
+                read.add(Arrays.asList(event));
+
+
+
+            }
+
+            for(int i =0;i<read.size();i++){
+                System.out.println(read.get(i));
+
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
         }
-        return read;
 
+        return read;
     }
+
+
     @Override
     public String toString() {
-        return "Event[ID = "+ ID+ "Type = "+"Name = "+name+"Date = "+ date
-                + "Time = "+time+ "VIP Price is "+VIP_price+ "Gold Price is "+ Gold_price
-                + "Silver Price is "+Silver_price+ " Bronze Price is"+ Bronze_price+ "General Admission is"+ General_Admission+"]";
+        return "Event[ ID = "+ ID + " Type = "+type+  " Name = "+name+" Date = "+ date
+                + " Time = "+time+ " VIP Price is "+VIP_price+ " Gold Price is "+ Gold_price
+                + " Silver Price is "+Silver_price+ " Bronze Price is "+ Bronze_price+ " General Admission is "+ General_Admission+" ]";
 
     }
 }
